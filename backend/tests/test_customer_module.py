@@ -9,26 +9,49 @@ from datetime import datetime
 
 # Configuración
 BASE_URL = "http://localhost:8000/api"
-EMAIL = "testuser@pymeai.com"
-PASSWORD = "password123"
+TEST_EMAIL = "test_customer_module@pymeai.com"
+TEST_PASSWORD = "TestPassword123!"
 
 def main():
     print("=== Prueba del Módulo de Clientes ===")
     
-    # Paso 1: Iniciar sesión
-    print("\n1. Iniciando sesión...")
+    # Intentar iniciar sesión con el usuario de prueba
+    print("\n1. Intentando iniciar sesión con usuario de prueba...")
     login_data = {
-        "username": EMAIL,
-        "password": PASSWORD
+        "username": TEST_EMAIL,
+        "password": TEST_PASSWORD
     }
     
     login_response = requests.post(f"{BASE_URL}/auth/login", data=login_data)
     
     if login_response.status_code != 200:
-        print(f"Error al iniciar sesión: {login_response.text}")
-        # Intentar registrar un usuario
-        register_user()
-        return
+        print(f"No se pudo iniciar sesión: {login_response.text}")
+        print("Intentando registrar el usuario de prueba...")
+        
+        # Registrar el usuario de prueba
+        register_data = {
+            "email": TEST_EMAIL,
+            "password": TEST_PASSWORD,
+            "first_name": "Test",
+            "last_name": "Customer Module",
+            "organization_name": "Test Organization for Customer Module"
+        }
+        
+        register_response = requests.post(f"{BASE_URL}/auth/register", json=register_data)
+        
+        if register_response.status_code != 200:
+            print(f"Error al registrar usuario: {register_response.text}")
+            print("¿El usuario ya existe con otra contraseña? Considera eliminar el usuario o usar otro email.")
+            return
+        
+        print("Usuario de prueba registrado correctamente.")
+        
+        # Iniciar sesión con el usuario recién creado
+        login_response = requests.post(f"{BASE_URL}/auth/login", data=login_data)
+        
+        if login_response.status_code != 200:
+            print(f"Error inesperado al iniciar sesión después del registro: {login_response.text}")
+            return
     
     token = login_response.json()["access_token"]
     print(f"Sesión iniciada correctamente. Token: {token[:20]}...")
@@ -40,10 +63,12 @@ def main():
         "Content-Type": "application/json"
     }
     
+    # Usar un timestamp para hacer únicos los datos del cliente en cada ejecución
+    timestamp = datetime.now().strftime('%Y%m%d%H%M%S')
     customer_data = {
-        "first_name": f"Cliente {datetime.now().strftime('%H:%M:%S')}",
+        "first_name": f"Cliente {timestamp}",
         "last_name": "Prueba",
-        "email": f"cliente_{datetime.now().strftime('%H%M%S')}@example.com",
+        "email": f"cliente_{timestamp}@example.com",
         "phone": "123-456-7890",
         "address": "Calle Principal 123",
         "segment": "VIP",
@@ -97,7 +122,7 @@ def main():
     # Paso 5: Actualizar un cliente
     print(f"\n5. Actualizando cliente con ID {customer_id}...")
     update_data = {
-        "first_name": f"ClienteActualizado {datetime.now().strftime('%H:%M:%S')}",
+        "first_name": f"ClienteActualizado {timestamp}",
         "segment": "Regular"
     }
     
@@ -130,28 +155,12 @@ def main():
     print(f"Cliente eliminado (inactivado): {deleted_customer['first_name']} {deleted_customer['last_name']}")
     print(f"Estado: {deleted_customer['status']}")
     
+    # Paso 7: Limpiar datos de prueba
+    # Aquí se limpiarían los datos creados durante la prueba
+    # (Esto requeriría endpoints adicionales)
+    # Por ahora, solo eliminamos los clientes, que ya hicimos en el paso 6
+    
     print("\n=== Prueba completada con éxito ===")
-
-def register_user():
-    """Registrar un usuario si no existe"""
-    print("Intentando registrar un usuario...")
-    
-    register_data = {
-        "email": EMAIL,
-        "password": PASSWORD,
-        "first_name": "Test",
-        "last_name": "User",
-        "organization_name": "Test Organization"
-    }
-    
-    register_response = requests.post(f"{BASE_URL}/auth/register", json=register_data)
-    
-    if register_response.status_code != 200:
-        print(f"Error al registrar usuario: {register_response.text}")
-        return
-    
-    print("Usuario registrado correctamente.")
-    main()  # Reintentar la prueba
 
 if __name__ == "__main__":
     main()

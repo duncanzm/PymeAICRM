@@ -4,6 +4,14 @@ Punto de entrada principal para la aplicación FastAPI.
 Define la aplicación FastAPI y configura los routers.
 """
 
+import logging
+
+# Configurar logging primero, antes de cualquier otra cosa
+logging.basicConfig(
+    level=logging.INFO,
+    format='%(asctime)s - %(name)s - %(levelname)s - %(message)s',
+)
+
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 

@@ -6,7 +6,7 @@ Endpoints relacionados con la autenticación:
 - Recuperación de contraseña
 """
 
-from fastapi import APIRouter, Depends, HTTPException, status
+from fastapi import APIRouter, Depends, HTTPException, Request, status
 from fastapi.security import OAuth2PasswordRequestForm
 from sqlalchemy.orm import Session
 from typing import Any, Dict
@@ -16,6 +16,7 @@ from app.db.base import get_db
 from app.core.security import verify_password, create_access_token, get_password_hash
 from app.models.user import User
 from app.models.organization import Organization
+from app.models.active_session import ActiveSession
 
 # Crear router
 router = APIRouter()
@@ -46,7 +47,8 @@ class TokenResponse(BaseModel):
 @router.post("/login")
 def login(
     form_data: OAuth2PasswordRequestForm = Depends(),
-    db: Session = Depends(get_db)
+    db: Session = Depends(get_db),
+    request: Request = None
 ) -> Dict[str, str]:
     """
     Endpoint de login OAuth2 compatible.
@@ -65,6 +67,20 @@ def login(
     
     # Crear token de acceso
     access_token = create_access_token(subject=user.id)
+    
+    # Obtener información del dispositivo y dirección IP
+    device_info = request.headers.get("User-Agent") if request else None
+    ip_address = request.client.host if request and request.client else None
+    
+    # Registrar la sesión activa
+    session = ActiveSession.create_session(
+        user_id=user.id,
+        token=access_token,
+        device_info=device_info,
+        ip_address=ip_address
+    )
+    db.add(session)
+    db.commit()
     
     return {
         "access_token": access_token,

@@ -4,6 +4,7 @@ Dependencias para los endpoints de la API.
 Incluye funciones para obtener el usuario autenticado y verificar permisos.
 """
 
+from datetime import datetime, timezone
 from fastapi import Depends, HTTPException, status
 from fastapi.security import OAuth2PasswordBearer
 from jose import jwt, JWTError
@@ -12,6 +13,7 @@ from sqlalchemy.orm import Session
 from app.db.base import get_db
 from app.models.user import User
 from app.core.security import SECRET_KEY, ALGORITHM
+from app.models.active_session import ActiveSession
 
 # Esquema OAuth2 para obtener el token del header Authorization
 oauth2_scheme = OAuth2PasswordBearer(tokenUrl="/api/auth/login")
@@ -46,6 +48,21 @@ async def get_current_user(
         raise credentials_exception
     if not user.is_active:
         raise HTTPException(status_code=400, detail="Usuario inactivo")
+    
+    # Verificar si el token está en la lista de sesiones activas
+    session = db.query(ActiveSession).filter(
+        ActiveSession.token == token,
+        ActiveSession.user_id == user.id,
+        ActiveSession.is_active == True,
+        ActiveSession.expires_at > datetime.now(timezone.utc)
+    ).first()
+    
+    if not session:
+        raise credentials_exception
+    
+    # Actualizar la hora de última actividad
+    session.last_activity = datetime.now(timezone.utc)
+    db.commit()
     
     return user
 

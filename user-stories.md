@@ -30,7 +30,7 @@ A continuación se presenta el seguimiento de las historias de usuario organizad
 | 1 | Como propietario de una PYME, quiero registrarme en la plataforma para comenzar a gestionar mi negocio. | ✅ Completado (Backend) | 1 | - |
 | 2 | Como usuario registrado, quiero iniciar sesión de forma segura para acceder a mis datos. | ✅ Completado (Backend) | 1 | - |
 | 3 | Como administrador de cuenta, quiero invitar a miembros de mi equipo con diferentes niveles de acceso para distribuir tareas. | 📋 Por hacer | 2 | - |
-| 4 | Como usuario, quiero recuperar mi contraseña en caso de olvidarla para no perder acceso a mi cuenta. | 📋 Por hacer | 1 | - |
+| 4 | Como usuario, quiero recuperar mi contraseña en caso de olvidarla para no perder acceso a mi cuenta. | ✅ Completado (Backend) | 1 | - |
 | 5 | Como usuario, quiero cerrar sesión desde cualquier dispositivo para mantener la seguridad de mi cuenta. | 📋 Por hacer | 2 | - |
 
 ### Módulo: CRM

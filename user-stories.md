@@ -12,8 +12,8 @@ Este documento mantiene el seguimiento de todas las historias de usuario y requi
 
 Estado actual: **En desarrollo (Fase MVP)**
 
-- Sprint 1-2: Configuración y Autenticación ⏳ En progreso
-- Sprint 3-4: Gestión de Clientes 🔜 Planificado
+- Sprint 1-2: Configuración y Autenticación ✅ Completado
+- Sprint 3-4: Gestión de Clientes ⏳ En progreso
 - Sprint 5-6: Pipelines 🔜 Planificado
 - Sprint 7-8: Chatbot Kula y Finalización 🔜 Planificado
 
@@ -25,8 +25,8 @@ A continuación se presenta el seguimiento de las historias de usuario organizad
 
 | ID | Historia de Usuario | Estado | Sprint | Asignado a |
 |----|---------------------|--------|--------|------------|
-| 1 | Como propietario de una PYME, quiero registrarme en la plataforma para comenzar a gestionar mi negocio. | 🔄 En progreso | 1 | - |
-| 2 | Como usuario registrado, quiero iniciar sesión de forma segura para acceder a mis datos. | 📋 Por hacer | 1 | - |
+| 1 | Como propietario de una PYME, quiero registrarme en la plataforma para comenzar a gestionar mi negocio. | ✅ Completado | 1 | - |
+| 2 | Como usuario registrado, quiero iniciar sesión de forma segura para acceder a mis datos. | ✅ Completado | 1 | - |
 | 3 | Como administrador de cuenta, quiero invitar a miembros de mi equipo con diferentes niveles de acceso para distribuir tareas. | 📋 Por hacer | 2 | - |
 | 4 | Como usuario, quiero recuperar mi contraseña en caso de olvidarla para no perder acceso a mi cuenta. | 📋 Por hacer | 1 | - |
 | 5 | Como usuario, quiero cerrar sesión desde cualquier dispositivo para mantener la seguridad de mi cuenta. | 📋 Por hacer | 2 | - |
@@ -35,8 +35,8 @@ A continuación se presenta el seguimiento de las historias de usuario organizad
 
 | ID | Historia de Usuario | Estado | Sprint | Asignado a |
 |----|---------------------|--------|--------|------------|
-| 6 | Como gerente de ventas, quiero registrar nuevos clientes con campos personalizados según mi tipo de negocio para mantener información relevante. | 📋 Por hacer | 3 | - |
-| 7 | Como vendedor, quiero ver un listado de todos mis clientes con filtros avanzados para encontrar información rápidamente. | 📋 Por hacer | 3 | - |
+| 6 | Como gerente de ventas, quiero registrar nuevos clientes con campos personalizados según mi tipo de negocio para mantener información relevante. | ⚠️ Parcial | 3 | - |
+| 7 | Como vendedor, quiero ver un listado de todos mis clientes con filtros avanzados para encontrar información rápidamente. | ⚠️ Parcial | 3 | - |
 | 8 | Como gerente de marketing, quiero segmentar automáticamente a mis clientes según su comportamiento de compra para crear estrategias dirigidas. | 📋 Por hacer | 4 | - |
 | 9 | Como dueño del negocio, quiero identificar a mis clientes frecuentes, nuevos e inactivos para desarrollar estrategias de retención. | 📋 Por hacer | 3 | - |
 | 10 | Como vendedor, quiero registrar cada interacción con mis clientes para mantener un historial completo. | 📋 Por hacer | 3 | - |
@@ -338,21 +338,21 @@ A continuación se presentan los criterios de aceptación detallados para cada h
 ## Requisitos Técnicos
 
 ### Arquitectura y Configuración
-- [ ] Crear estructura del proyecto
-- [ ] Configurar entorno Docker
-- [ ] Implementar sistema de migraciones
+- [x] Crear estructura del proyecto
+- [x] Configurar entorno Docker
+- [x] Implementar sistema de migraciones
 - [ ] Configurar CI/CD
 
 ### Seguridad y Autenticación
-- [ ] Implementar autenticación JWT
-- [ ] Configurar almacenamiento seguro de contraseñas
+- [x] Implementar autenticación JWT
+- [x] Configurar almacenamiento seguro de contraseñas
 - [ ] Implementar sistema de roles y permisos
 - [ ] Configurar HTTPS
 
 ### Backend (FastAPI)
-- [ ] Desarrollar API RESTful con documentación
-- [ ] Implementar validación de datos con Pydantic
-- [ ] Crear endpoints para CRM
+- [x] Desarrollar API RESTful con documentación
+- [x] Implementar validación de datos con Pydantic
+- [⚠️] Crear endpoints para CRM (parcial)
 - [ ] Desarrollar servicios de análisis de datos
 
 ### Frontend (React.js)
@@ -362,7 +362,7 @@ A continuación se presentan los criterios de aceptación detallados para cada h
 - [ ] Implementar vista Kanban para pipelines
 
 ### Base de Datos
-- [ ] Diseñar esquema relacional
+- [x] Diseñar esquema relacional
 - [ ] Implementar modelo para campos personalizables
 - [ ] Crear índices optimizados
 - [ ] Configurar respaldos automáticos

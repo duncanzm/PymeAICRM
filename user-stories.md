@@ -10,12 +10,14 @@ Este documento mantiene el seguimiento de todas las historias de usuario y requi
 
 ## Estado del Proyecto
 
-Estado actual: **En desarrollo (Fase MVP)**
+Estado actual: **En desarrollo (Fase MVP - Backend)**
 
-- Sprint 1-2: Configuración y Autenticación ✅ Completado
-- Sprint 3-4: Gestión de Clientes ⏳ En progreso
-- Sprint 5-6: Pipelines 🔜 Planificado
-- Sprint 7-8: Chatbot Kula y Finalización 🔜 Planificado
+- Sprint 1-2: Configuración y Autenticación Backend ✅ Completado
+- Sprint 3-4: Gestión de Clientes Backend ⏳ En progreso
+- Sprint 5-6: Pipelines Backend 🔜 Planificado
+- Sprint 7-8: Chatbot Kula y Frontend 🔜 Planificado
+
+> **Nota**: Hasta el momento, el desarrollo se ha centrado exclusivamente en el backend. El frontend/UI aún no se ha comenzado a implementar.
 
 ## Historias de Usuario
 
@@ -25,8 +27,8 @@ A continuación se presenta el seguimiento de las historias de usuario organizad
 
 | ID | Historia de Usuario | Estado | Sprint | Asignado a |
 |----|---------------------|--------|--------|------------|
-| 1 | Como propietario de una PYME, quiero registrarme en la plataforma para comenzar a gestionar mi negocio. | ✅ Completado | 1 | - |
-| 2 | Como usuario registrado, quiero iniciar sesión de forma segura para acceder a mis datos. | ✅ Completado | 1 | - |
+| 1 | Como propietario de una PYME, quiero registrarme en la plataforma para comenzar a gestionar mi negocio. | ✅ Completado (Backend) | 1 | - |
+| 2 | Como usuario registrado, quiero iniciar sesión de forma segura para acceder a mis datos. | ✅ Completado (Backend) | 1 | - |
 | 3 | Como administrador de cuenta, quiero invitar a miembros de mi equipo con diferentes niveles de acceso para distribuir tareas. | 📋 Por hacer | 2 | - |
 | 4 | Como usuario, quiero recuperar mi contraseña en caso de olvidarla para no perder acceso a mi cuenta. | 📋 Por hacer | 1 | - |
 | 5 | Como usuario, quiero cerrar sesión desde cualquier dispositivo para mantener la seguridad de mi cuenta. | 📋 Por hacer | 2 | - |
@@ -35,8 +37,8 @@ A continuación se presenta el seguimiento de las historias de usuario organizad
 
 | ID | Historia de Usuario | Estado | Sprint | Asignado a |
 |----|---------------------|--------|--------|------------|
-| 6 | Como gerente de ventas, quiero registrar nuevos clientes con campos personalizados según mi tipo de negocio para mantener información relevante. | ⚠️ Parcial | 3 | - |
-| 7 | Como vendedor, quiero ver un listado de todos mis clientes con filtros avanzados para encontrar información rápidamente. | ⚠️ Parcial | 3 | - |
+| 6 | Como gerente de ventas, quiero registrar nuevos clientes con campos personalizados según mi tipo de negocio para mantener información relevante. | ⚠️ Parcial (Solo Backend) | 3 | - |
+| 7 | Como vendedor, quiero ver un listado de todos mis clientes con filtros avanzados para encontrar información rápidamente. | ⚠️ Parcial (Solo Backend) | 3 | - |
 | 8 | Como gerente de marketing, quiero segmentar automáticamente a mis clientes según su comportamiento de compra para crear estrategias dirigidas. | 📋 Por hacer | 4 | - |
 | 9 | Como dueño del negocio, quiero identificar a mis clientes frecuentes, nuevos e inactivos para desarrollar estrategias de retención. | 📋 Por hacer | 3 | - |
 | 10 | Como vendedor, quiero registrar cada interacción con mis clientes para mantener un historial completo. | 📋 Por hacer | 3 | - |
@@ -338,16 +340,18 @@ A continuación se presentan los criterios de aceptación detallados para cada h
 ## Requisitos Técnicos
 
 ### Arquitectura y Configuración
-- [x] Crear estructura del proyecto
+- [x] Crear estructura del proyecto (Backend)
 - [x] Configurar entorno Docker
 - [x] Implementar sistema de migraciones
 - [ ] Configurar CI/CD
+- [ ] Configurar estructura del frontend
 
 ### Seguridad y Autenticación
-- [x] Implementar autenticación JWT
+- [x] Implementar autenticación JWT (Backend)
 - [x] Configurar almacenamiento seguro de contraseñas
 - [ ] Implementar sistema de roles y permisos
 - [ ] Configurar HTTPS
+- [ ] Implementar flujo de autenticación en Frontend
 
 ### Backend (FastAPI)
 - [x] Desarrollar API RESTful con documentación
@@ -356,10 +360,14 @@ A continuación se presentan los criterios de aceptación detallados para cada h
 - [ ] Desarrollar servicios de análisis de datos
 
 ### Frontend (React.js)
+- [ ] Configurar proyecto React con TypeScript
 - [ ] Implementar diseño responsive
 - [ ] Desarrollar componentes reutilizables
 - [ ] Crear interfaz de usuario intuitiva
 - [ ] Implementar vista Kanban para pipelines
+- [ ] Desarrollar flujo de autenticación
+- [ ] Implementar gestión de clientes
+- [ ] Configurar estado global y llamadas a API
 
 ### Base de Datos
 - [x] Diseñar esquema relacional

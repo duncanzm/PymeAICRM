@@ -25,3 +25,5 @@ class User(Base):
     # Relaciones con otros modelos
     # Un usuario pertenece a una organización (muchos a uno)
     organization = relationship("Organization", back_populates="users")
+    interactions = relationship("Interaction", back_populates="user")
+    opportunities = relationship("Opportunity", back_populates="user")

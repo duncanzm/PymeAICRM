@@ -2,7 +2,7 @@
 from fastapi import APIRouter, Depends, HTTPException, Query
 from sqlalchemy.orm import Session
 from typing import List, Optional
-from datetime import datetime
+from datetime import datetime, date, timedelta
 
 from app.db.base import get_db
 from app.models.user import User
@@ -36,17 +36,35 @@ class CustomerUpdate(BaseModel):
     custom_fields: Optional[dict] = None
     status: Optional[str] = None
 
-class CustomerResponse(CustomerBase):
+class CustomerResponse(BaseModel):
     id: int
     organization_id: int
+    first_name: str
+    last_name: Optional[str] = None
+    email: Optional[EmailStr] = None
+    phone: Optional[str] = None
+    address: Optional[str] = None
+    segment: Optional[str] = None
+    notes: Optional[str] = None
+    custom_fields: Optional[dict] = None
     created_at: datetime
     updated_at: datetime
     last_interaction: Optional[datetime] = None
     status: str
     lifetime_value: float
     
+    # Campos de segmentación
+    first_purchase_date: Optional[date] = None
+    last_purchase_date: Optional[date] = None
+    purchase_count: Optional[int] = None
+    total_spent: Optional[float] = None
+    average_purchase_value: Optional[float] = None
+    purchase_frequency_days: Optional[float] = None
+    days_since_last_purchase: Optional[int] = None
+    segment_updated_at: Optional[datetime] = None
+    
     class Config:
-        orm_mode = True
+        from_attributes = True  # Cambiado de orm_mode=True
 
 # Crear router
 router = APIRouter()
@@ -180,6 +198,58 @@ def delete_customer(
     
     # Marcar como inactivo
     customer.status = "inactive"
+    
+    # Guardar cambios
+    db.commit()
+    db.refresh(customer)
+    
+    return customer
+
+class PurchaseRecord(BaseModel):
+    purchase_date: date
+    amount: float
+    items_count: Optional[int] = 1
+    notes: Optional[str] = None
+
+@router.post("/{customer_id}/purchase", response_model=CustomerResponse)
+def record_customer_purchase(
+    customer_id: int,
+    purchase_data: PurchaseRecord,
+    db: Session = Depends(get_db),
+    current_user: User = Depends(get_current_user)
+):
+    """
+    Registra una compra para un cliente y actualiza sus métricas para segmentación.
+    """
+    # Buscar el cliente
+    customer = db.query(Customer).filter(
+        Customer.id == customer_id,
+        Customer.organization_id == current_user.organization_id
+    ).first()
+    
+    if not customer:
+        raise HTTPException(status_code=404, detail="Cliente no encontrado")
+    
+    # Actualizar datos de compra
+    if not customer.first_purchase_date:
+        customer.first_purchase_date = purchase_data.purchase_date
+    
+    # Si ya tenía compras, calcular la frecuencia
+    if customer.purchase_count > 0 and customer.last_purchase_date:
+        days_between = (purchase_data.purchase_date - customer.last_purchase_date).days
+        
+        # Actualizar la frecuencia promedio
+        if customer.purchase_frequency_days:
+            # Promedio ponderado, dando más peso a las compras recientes
+            customer.purchase_frequency_days = (customer.purchase_frequency_days * 0.7) + (days_between * 0.3)
+        else:
+            customer.purchase_frequency_days = days_between
+    
+    # Actualizar estadísticas de compra
+    customer.last_purchase_date = purchase_data.purchase_date
+    customer.purchase_count += 1
+    customer.total_spent += purchase_data.amount
+    customer.average_purchase_value = customer.total_spent / customer.purchase_count
     
     # Guardar cambios
     db.commit()

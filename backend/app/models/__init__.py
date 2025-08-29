@@ -16,3 +16,5 @@ from app.models.pipeline import Pipeline
 from app.models.pipeline_stage import PipelineStage
 from app.models.opportunity import Opportunity
 from app.models.stage_history import StageHistory
+from app.models.conversation import Conversation
+from app.models.message import Message

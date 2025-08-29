@@ -10,14 +10,14 @@ Este documento mantiene el seguimiento de todas las historias de usuario y requi
 
 ## Estado del Proyecto
 
-Estado actual: **En desarrollo (Fase MVP - Backend)**
+Estado actual: **En desarrollo (Fase MVP - Frontend en progreso)**
 
 - Sprint 1-2: Configuración y Autenticación Backend ✅ Completado
-- Sprint 3-4: Gestión de Clientes Backend ⏳ En progreso
-- Sprint 5-6: Pipelines Backend 🔜 Planificado
-- Sprint 7-8: Chatbot Kula y Frontend 🔜 Planificado
+- Sprint 3-4: Gestión de Clientes Backend ✅ Completado
+- Sprint 5-6: Pipelines Backend ✅ Completado
+- Sprint 7-8: Chatbot Kula y Frontend ⏳ En progreso
 
-> **Nota**: Hasta el momento, el desarrollo se ha centrado exclusivamente en el backend. El frontend/UI aún no se ha comenzado a implementar.
+> **Nota**: El desarrollo del backend está completo para las funcionalidades principales. El frontend está en fase inicial de implementación con autenticación básica funcionando.
 
 ## Historias de Usuario
 
@@ -27,11 +27,11 @@ A continuación se presenta el seguimiento de las historias de usuario organizad
 
 | ID | Historia de Usuario | Estado | Sprint | Asignado a |
 |----|---------------------|--------|--------|------------|
-| 1 | Como propietario de una PYME, quiero registrarme en la plataforma para comenzar a gestionar mi negocio. | ✅ Completado (Backend) | 1 | - |
-| 2 | Como usuario registrado, quiero iniciar sesión de forma segura para acceder a mis datos. | ✅ Completado (Backend) | 1 | - |
-| 3 | Como administrador de cuenta, quiero invitar a miembros de mi equipo con diferentes niveles de acceso para distribuir tareas. | ✅ Completado (Backend) | 2 | - |
-| 4 | Como usuario, quiero recuperar mi contraseña en caso de olvidarla para no perder acceso a mi cuenta. | ✅ Completado (Backend) | 1 | - |
-| 5 | Como usuario, quiero cerrar sesión desde cualquier dispositivo para mantener la seguridad de mi cuenta. | ✅ Completado (Backend) | 2 | - |
+| 1 | Como propietario de una PYME, quiero registrarme en la plataforma para comenzar a gestionar mi negocio. | ⚠️ Parcial (Backend completo, Frontend en progreso) | 1 | Duncan |
+| 2 | Como usuario registrado, quiero iniciar sesión de forma segura para acceder a mis datos. | ✅ Completado | 1 | Duncan |
+| 3 | Como administrador de cuenta, quiero invitar a miembros de mi equipo con diferentes niveles de acceso para distribuir tareas. | ⚠️ Parcial (Solo Backend) | 2 | - |
+| 4 | Como usuario, quiero recuperar mi contraseña en caso de olvidarla para no perder acceso a mi cuenta. | ⚠️ Parcial (Solo Backend) | 1 | - |
+| 5 | Como usuario, quiero cerrar sesión desde cualquier dispositivo para mantener la seguridad de mi cuenta. | ⚠️ Parcial (Solo Backend) | 2 | - |
 
 ### Módulo: CRM
 
@@ -41,17 +41,17 @@ A continuación se presenta el seguimiento de las historias de usuario organizad
 | 7 | Como vendedor, quiero ver un listado de todos mis clientes con filtros avanzados para encontrar información rápidamente. | ⚠️ Parcial (Solo Backend) | 3 | - |
 | 8 | Como gerente de marketing, quiero segmentar automáticamente a mis clientes según su comportamiento de compra para crear estrategias dirigidas. | 📋 Por hacer | 4 | - |
 | 9 | Como dueño del negocio, quiero identificar a mis clientes frecuentes, nuevos e inactivos para desarrollar estrategias de retención. | 📋 Por hacer | 3 | - |
-| 10 | Como vendedor, quiero registrar cada interacción con mis clientes para mantener un historial completo. | 📋 Por hacer | 3 | - |
+| 10 | Como vendedor, quiero registrar cada interacción con mis clientes para mantener un historial completo. | ✅ Completado (Backend) | 3 | - |
 | 11 | Como gerente de ventas, quiero recibir alertas sobre clientes inactivos para implementar acciones de recuperación. | 📋 Por hacer | 4 | - |
 
 ### Módulo: Pipelines
 
 | ID | Historia de Usuario | Estado | Sprint | Asignado a |
 |----|---------------------|--------|--------|------------|
-| 12 | Como gerente de ventas, quiero crear pipelines personalizados para adaptar el proceso a mi modelo de negocio. | 📋 Por hacer | 5 | - |
-| 13 | Como vendedor, quiero gestionar oportunidades de venta en formato Kanban para visualizar fácilmente el estado de cada negociación. | 📋 Por hacer | 5 | - |
-| 14 | Como gerente, quiero establecer etapas personalizadas en mis pipelines para reflejar mi proceso de ventas. | 📋 Por hacer | 5 | - |
-| 15 | Como vendedor, quiero mover oportunidades entre etapas mediante arrastrar y soltar para actualizar su estado fácilmente. | 📋 Por hacer | 6 | - |
+| 12 | Como gerente de ventas, quiero crear pipelines personalizados para adaptar el proceso a mi modelo de negocio. | ✅ Completado (Backend) | 5 | - |
+| 13 | Como vendedor, quiero gestionar oportunidades de venta en formato Kanban para visualizar fácilmente el estado de cada negociación. | ✅ Completado (Backend) | 5 | - |
+| 14 | Como gerente, quiero establecer etapas personalizadas en mis pipelines para reflejar mi proceso de ventas. | ✅ Completado (Backend) | 5 | - |
+| 15 | Como vendedor, quiero mover oportunidades entre etapas mediante arrastrar y soltar para actualizar su estado fácilmente. | ✅ Completado (Backend) | 6 | - |
 | 16 | Como gerente de ventas, quiero ver métricas sobre la eficiencia de mi pipeline para identificar cuellos de botella. | 📋 Por hacer | 6 | - |
 
 ### Módulo: Análisis de Ventas
@@ -68,7 +68,7 @@ A continuación se presenta el seguimiento de las historias de usuario organizad
 
 | ID | Historia de Usuario | Estado | Sprint | Asignado a |
 |----|---------------------|--------|--------|------------|
-| 22 | Como dueño del negocio, quiero un panel de control con métricas clave para tomar decisiones informadas rápidamente. | 📋 Por hacer | 7 | - |
+| 22 | Como dueño del negocio, quiero un panel de control con métricas clave para tomar decisiones informadas rápidamente. | 📋 Por hacer | 7 | Duncan |
 | 23 | Como gerente, quiero visualizar KPIs relevantes para mi tipo de negocio para evaluar el desempeño. | 📋 Por hacer | 7 | - |
 | 24 | Como dueño, quiero ver informes visuales de recurrencia de clientes para medir la fidelidad. | 📋 Por hacer | Post-MVP | - |
 | 25 | Como gerente financiero, quiero exportar reportes en diferentes formatos para compartirlos con otros stakeholders. | 📋 Por hacer | Post-MVP | - |
@@ -344,34 +344,35 @@ A continuación se presentan los criterios de aceptación detallados para cada h
 - [x] Configurar entorno Docker
 - [x] Implementar sistema de migraciones
 - [ ] Configurar CI/CD
-- [ ] Configurar estructura del frontend
+- [x] Configurar estructura del frontend
 
 ### Seguridad y Autenticación
 - [x] Implementar autenticación JWT (Backend)
 - [x] Configurar almacenamiento seguro de contraseñas
 - [x] Implementar sistema de roles y permisos
 - [ ] Configurar HTTPS
-- [ ] Implementar flujo de autenticación en Frontend
+- [x] Implementar flujo de autenticación en Frontend
 
 ### Backend (FastAPI)
 - [x] Desarrollar API RESTful con documentación
 - [x] Implementar validación de datos con Pydantic
-- [⚠️] Crear endpoints para CRM (parcial)
+- [x] Crear endpoints para CRM (clientes, interacciones)
+- [x] Crear endpoints para Pipelines (pipelines, etapas, oportunidades)
 - [ ] Desarrollar servicios de análisis de datos
 
 ### Frontend (React.js)
-- [ ] Configurar proyecto React con TypeScript
+- [x] Configurar proyecto React con TypeScript
 - [ ] Implementar diseño responsive
 - [ ] Desarrollar componentes reutilizables
-- [ ] Crear interfaz de usuario intuitiva
+- [x] Crear interfaz de usuario para autenticación
 - [ ] Implementar vista Kanban para pipelines
-- [ ] Desarrollar flujo de autenticación
+- [x] Desarrollar flujo de autenticación
 - [ ] Implementar gestión de clientes
-- [ ] Configurar estado global y llamadas a API
+- [x] Configurar estado global y llamadas a API
 
 ### Base de Datos
 - [x] Diseñar esquema relacional
-- [ ] Implementar modelo para campos personalizables
+- [x] Implementar modelo para campos personalizables
 - [ ] Crear índices optimizados
 - [ ] Configurar respaldos automáticos
 

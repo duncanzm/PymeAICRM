@@ -1,0 +1,23 @@
+/* src/index.css */
+:root {
+  --bs-primary: #4338ca;
+  --bs-primary-rgb: 67, 56, 202;
+}
+
+body {
+  background-color: #f8f9fa;
+}
+
+.btn-primary {
+  background-color: var(--bs-primary);
+  border-color: var(--bs-primary);
+}
+
+.btn-primary:hover {
+  background-color: #3730a3;
+  border-color: #3730a3;
+}
+
+.text-primary {
+  color: var(--bs-primary) !important;
+}

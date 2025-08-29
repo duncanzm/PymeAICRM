@@ -27,3 +27,4 @@ class User(Base):
     organization = relationship("Organization", back_populates="users")
     interactions = relationship("Interaction", back_populates="user")
     opportunities = relationship("Opportunity", back_populates="user")
+    conversations = relationship("Conversation", back_populates="user")

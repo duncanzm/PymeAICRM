@@ -6,7 +6,7 @@ Configuración central de todos los routers de la API.
 from fastapi import APIRouter
 
 # Importar los diferentes routers de endpoints
-from app.api.endpoints import auth, users, customers, password_reset, sessions, invitations, interactions, pipelines, opportunities
+from app.api.endpoints import auth, users, customers, password_reset, sessions, invitations, interactions, pipelines, opportunities, dashboard, kula
 
 # Crear el router principal
 api_router = APIRouter()
@@ -21,3 +21,5 @@ api_router.include_router(invitations.router, prefix="/invitations", tags=["invi
 api_router.include_router(interactions.router, prefix="/interactions", tags=["interactions"])
 api_router.include_router(pipelines.router, prefix="/pipelines", tags=["pipelines"])
 api_router.include_router(opportunities.router, prefix="/opportunities", tags=["opportunities"])
+api_router.include_router(dashboard.router, prefix="/dashboard", tags=["dashboard"])
+api_router.include_router(kula.router, prefix="/kula", tags=["kula"])

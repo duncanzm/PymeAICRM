@@ -1,37 +1,43 @@
-// frontend/src/main.tsx
-import React from 'react';
-import ReactDOM from 'react-dom/client';
-import { BrowserRouter } from 'react-router-dom';
-import { QueryClient, QueryClientProvider } from 'react-query';
-import App from './App';
-import { AuthProvider } from './context/AuthContext';
-import './index.css';
+// src/main.tsx
+import React from 'react'
+import ReactDOM from 'react-dom/client'
+import App from './App.tsx'
+// Importamos los componentes básicos de Material UI para el tema
+import { ThemeProvider, createTheme } from '@mui/material/styles';
+// CssBaseline normaliza los estilos CSS entre diferentes navegadores
+import CssBaseline from '@mui/material/CssBaseline';
+import './index.css'
 
-// Crear cliente de React Query para gestión de datos del servidor
-const queryClient = new QueryClient({
-  defaultOptions: {
-    queries: {
-      // Configuraciones por defecto para todas las consultas
-      refetchOnWindowFocus: false, // No recargar datos cuando la ventana recupera el foco
-      retry: 1, // Intentar de nuevo una vez si falla
-      staleTime: 5 * 60 * 1000, // Considerar datos "frescos" durante 5 minutos
+// Creamos un tema personalizado para Material UI con nuestra paleta de colores
+const theme = createTheme({
+  palette: {
+    primary: {
+      main: '#4338ca', // Color principal: Indigo
     },
+    secondary: {
+      main: '#0891b2', // Color secundario: Cyan
+    },
+  },
+  // Configuración de tipografía para toda la aplicación
+  typography: {
+    fontFamily: [
+      '-apple-system',
+      'BlinkMacSystemFont',
+      '"Segoe UI"',
+      'Roboto',
+      '"Helvetica Neue"',
+      'Arial',
+      'sans-serif',
+    ].join(','),
   },
 });
 
-// Renderizar la aplicación en el elemento root del HTML
-ReactDOM.createRoot(document.getElementById('root') as HTMLElement).render(
+// Renderizamos la aplicación dentro del ThemeProvider para aplicar nuestro tema
+ReactDOM.createRoot(document.getElementById('root')!).render(
   <React.StrictMode>
-    {/* BrowserRouter: Proveedor para enrutamiento basado en navegador */}
-    <BrowserRouter>
-      {/* QueryClientProvider: Proveedor para React Query */}
-      <QueryClientProvider client={queryClient}>
-        {/* AuthProvider: Proveedor del contexto de autenticación */}
-        <AuthProvider>
-          {/* Componente principal de la aplicación */}
-          <App />
-        </AuthProvider>
-      </QueryClientProvider>
-    </BrowserRouter>
-  </React.StrictMode>
-);
+    <ThemeProvider theme={theme}>
+      <CssBaseline /> {/* Normaliza los estilos entre navegadores */}
+      <App />
+    </ThemeProvider>
+  </React.StrictMode>,
+)

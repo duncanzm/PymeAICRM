@@ -26,3 +26,4 @@ class Organization(Base):
     customers = relationship("Customer", back_populates="organization")
     pipelines = relationship("Pipeline", back_populates="organization")
     opportunities = relationship("Opportunity", back_populates="organization")
+    conversations = relationship("Conversation", back_populates="organization")

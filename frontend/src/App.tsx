@@ -1,72 +1,74 @@
-// frontend/src/App.tsx
-import React from 'react';
-import { Routes, Route, Navigate } from 'react-router-dom';
-import { useAuth } from './context/AuthContext';
-
-// Importar componentes de páginas
+// src/App.tsx
+import React, { useEffect } from 'react';
+import { BrowserRouter, Routes, Route, Navigate, useLocation } from 'react-router-dom';
+import { Box } from '@mui/material';
 import Login from './pages/Login';
 import Register from './pages/Register';
-import Dashboard from './pages/Dashboard';
-import Navbar from './components/Navbar';
+import authService from './services/authService';
+import { getLoginError } from './utils/errorStorage';
 
-// Componente para rutas protegidas (requieren autenticación)
-const ProtectedRoute: React.FC<{element: React.ReactNode}> = ({ element }) => {
-  const { authState } = useAuth();
+// Componente para rutas protegidas
+const ProtectedRoute = ({ children }: { children: React.ReactElement }) => {
+  const location = useLocation();
+  const isAuthenticated = authService.isAuthenticated();
   
-  // Si está cargando, mostrar indicador de carga
-  if (authState.isLoading) {
-    return <div className="flex justify-center items-center h-screen">Cargando...</div>;
+  if (!isAuthenticated) {
+    // Redirigir a login si no está autenticado
+    return <Navigate to="/login" state={{ from: location }} replace />;
   }
   
-  // Si no está autenticado, redirigir a login
-  if (!authState.isAuthenticated) {
-    return <Navigate to="/login" replace />;
-  }
-  
-  // Si está autenticado, mostrar el componente
-  return <>{element}</>;
+  return children;
 };
 
-// Componente principal de la aplicación
-const App: React.FC = () => {
-  const { authState } = useAuth();
+// Componente para rutas públicas (como login)
+// Que solo debe ser accesible si NO está autenticado
+const PublicRoute = ({ children }: { children: React.ReactElement }) => {
+  const isAuthenticated = authService.isAuthenticated();
+  const hasError = !!getLoginError(); // Verificar si hay un error guardado
   
+  // Si está autenticado y no hay error, redirigir a dashboard
+  if (isAuthenticated && !hasError) {
+    return <Navigate to="/dashboard" replace />;
+  }
+  
+  // Si no está autenticado o hay un error, mostrar el componente
+  return children;
+};
+
+function App() {
   return (
-    <div className="min-h-screen bg-gray-50">
-      {/* Barra de navegación siempre visible */}
-      <Navbar />
-      
-      {/* Contenido principal */}
-      <main>
+    <Box sx={{ display: 'flex', minHeight: '100vh', bgcolor: 'background.default' }}>
+      <BrowserRouter>
         <Routes>
-          {/* Ruta de inicio - redirige según estado de autenticación */}
+          {/* Rutas públicas */}
+          <Route path="/login" element={
+            <PublicRoute>
+              <Login />
+            </PublicRoute>
+          } />
+          <Route path="/register" element={
+            <PublicRoute>
+              <Register />
+            </PublicRoute>
+          } />
+          <Route path="/" element={<Navigate to="/dashboard" />} />
+          
+          {/* Rutas protegidas - requieren autenticación */}
           <Route 
-            path="/" 
+            path="/dashboard" 
             element={
-              authState.isAuthenticated 
-                ? <Navigate to="/dashboard" replace /> 
-                : <Navigate to="/login" replace />
+              <ProtectedRoute>
+                <div>Dashboard (Implementar componente)</div>
+              </ProtectedRoute>
             } 
           />
           
-          {/* Rutas públicas */}
-          <Route path="/login" element={<Login />} />
-          <Route path="/register" element={<Register />} />
-          
-          {/* Rutas protegidas */}
-          <Route path="/dashboard" element={<ProtectedRoute element={<Dashboard />} />} />
-          
-          {/* Ruta para errores 404 */}
-          <Route path="*" element={
-            <div className="flex flex-col items-center justify-center min-h-screen">
-              <h1 className="text-4xl font-bold text-indigo-600">404</h1>
-              <p className="mt-2 text-lg">Página no encontrada</p>
-            </div>
-          } />
+          {/* Ruta para 404 */}
+          <Route path="*" element={<div>Página no encontrada</div>} />
         </Routes>
-      </main>
-    </div>
+      </BrowserRouter>
+    </Box>
   );
-};
+}
 
 export default App;

@@ -28,10 +28,15 @@ app = FastAPI(
 # Configurar CORS para permitir peticiones desde el frontend
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["*"],  # En producción, especificar los dominios exactos
-    allow_credentials=True,
-    allow_methods=["*"],
-    allow_headers=["*"],
+    # Especificar explícitamente las URLs permitidas, incluyendo el frontend Vite
+    allow_origins=[
+        "http://localhost:5173",  # Frontend en desarrollo con Vite
+        "http://localhost:3000",  # Alternativa común para desarrollo
+        "http://localhost:8080",  # Otra alternativa común
+    ],
+    allow_credentials=True,  # Permite enviar credenciales (cookies, headers de autenticación)
+    allow_methods=["*"],     # Permite todos los métodos HTTP (GET, POST, PUT, DELETE, etc.)
+    allow_headers=["*"],     # Permite todos los headers HTTP
 )
 
 # Incluir routers de la API

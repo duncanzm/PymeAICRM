@@ -1,10 +1,9 @@
 # backend/app/core/config.py
-
 import os
 import secrets
 from typing import Any, Dict, List, Optional, Union
-from pydantic import AnyHttpUrl, EmailStr, PostgresDsn, validator
-from pydantic_settings import BaseSettings
+from pydantic import AnyHttpUrl, EmailStr, PostgresDsn, field_validator
+from pydantic_settings import BaseSettings, SettingsConfigDict
 
 class Settings(BaseSettings):
     # Configuración general
@@ -25,16 +24,23 @@ class Settings(BaseSettings):
     POSTGRES_DB: str = "pymeai"
     SQLALCHEMY_DATABASE_URI: Optional[PostgresDsn] = None
     
-    @validator("SQLALCHEMY_DATABASE_URI", pre=True)
-    def assemble_db_connection(cls, v: Optional[str], values: Dict[str, Any]) -> Any:
+    # Variables adicionales de .env
+    DATABASE_URL: Optional[str] = None
+    ALGORITHM: Optional[str] = "HS256"
+    DEBUG: Optional[str] = None
+    ENVIRONMENT: Optional[str] = None
+    OPENAI_API_KEY: Optional[str] = None
+    
+    @field_validator("SQLALCHEMY_DATABASE_URI", mode='before')
+    def assemble_db_connection(cls, v: Optional[str], info) -> Any:
         if isinstance(v, str):
             return v
         return PostgresDsn.build(
             scheme="postgresql",
-            user=values.get("POSTGRES_USER"),
-            password=values.get("POSTGRES_PASSWORD"),
-            host=values.get("POSTGRES_SERVER"),
-            path=f"/{values.get('POSTGRES_DB') or ''}",
+            username=info.data.get("POSTGRES_USER"),
+            password=info.data.get("POSTGRES_PASSWORD"),
+            host=info.data.get("POSTGRES_SERVER"),
+            path=f"/{info.data.get('POSTGRES_DB') or ''}",
         )
     
     # Configuración de correo electrónico
@@ -49,8 +55,10 @@ class Settings(BaseSettings):
     SMTP_USER: str = os.getenv("SMTP_USER", "")
     SMTP_PASSWORD: str = os.getenv("SMTP_PASSWORD", "")
     
-    class Config:
-        case_sensitive = True
-        env_file = ".env"
+    model_config = SettingsConfigDict(
+        case_sensitive=True,
+        env_file=".env",
+        extra="allow"  # Permitir campos adicionales de entorno
+    )
 
 settings = Settings()

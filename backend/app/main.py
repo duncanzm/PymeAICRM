@@ -39,8 +39,13 @@ app.add_middleware(
     allow_headers=["*"],     # Permite todos los headers HTTP
 )
 
-# Incluir routers de la API
+# Incluir routers de la API con prefijos diferentes
+# Router normal
 app.include_router(api_router, prefix="/api")
+
+# Router adicional para manejar la duplicación de /api en las rutas
+# Esto hará que tanto /api/auth/... como /api/api/auth/... funcionen
+app.include_router(api_router, prefix="/api/api")
 
 # Endpoint raíz para verificar que la API está funcionando
 @app.get("/")

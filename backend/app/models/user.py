@@ -22,6 +22,10 @@ class User(Base):
     is_active = Column(Boolean, default=True)  # Indica si la cuenta está activa
     created_at = Column(DateTime, server_default=func.now())  # Fecha de creación (automática)
     
+    # Campos para restablecimiento de contraseña
+    reset_token = Column(String, nullable=True)  # Token hash para restablecimiento de contraseña
+    reset_token_expires = Column(DateTime, nullable=True)  # Fecha de expiración del token
+    
     # Relaciones con otros modelos
     # Un usuario pertenece a una organización (muchos a uno)
     organization = relationship("Organization", back_populates="users")
